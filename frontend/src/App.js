@@ -17,7 +17,7 @@ function App() {
 
   const refreshToken = async () => {
     try {
-      const res = await axios.post("/refresh", { token: user.refreshToken  });
+      const res = await axios.post("/refresh", { token: user.refreshToken });
       setUser({
         ...user,
         accessToken: res.data.accessToken,
@@ -36,20 +36,20 @@ function App() {
     async (config) => {
       let currentDate = new Date();
       const decodedToken = jwt_decode(user.accessToken);
-      
+
       if (decodedToken.exp * 1000 < currentDate.getTime()) {
         const data = await refreshToken();
 
         config.headers["authorization"] = "Bearer " + data.accessToken;
         console.log("New Access Token ", data.accessToken);
- 
+
         console.log("New Refresh Token ", data.refreshToken);
       }
-      
+
       return config;
     },
-    (error) => {
-      return Promise.reject(error);
+    (error_1) => {
+      return Promise.reject(error_1);
     }
   );
 
@@ -61,8 +61,8 @@ function App() {
       console.log("Refresh Token ", res.data.refreshToken);
 
       setUser(res.data);
-    } catch (error) {
-      console.log(error);
+    } catch (error_2) {
+      console.log(error_2);
     }
   };
 
@@ -100,7 +100,7 @@ function App() {
         {user ? (
           <div className="home">
             <div>
-              Welcome to the <b>{user.isAdmin ? "admin" : "user"}</b> dashboard{" "}
+              Welcome to the <b>if(user.isAdmin){"admin"} else {"user"} </b> dashboard{" "}
               <b>{user.username}</b>.
             </div>
             <br />
